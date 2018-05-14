@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+  <body style="background-color: #0f0f17">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">ElectroTitans AI - LocalNet (VictoryNet)</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+      
+    <div class="jumbotron text-light" style="background-image: url('https://i.imgur.com/G2q9ikB.gif'); background-repeat: no-repeat, repeat; height: 80vh">
+        <h1 class="display-4">LocalNet (VictoryNet)</h1>
+        <p class="lead">Deep Learning Localization</p>
+        <hr class="my-4">
+        <p>Using only raw sensor data such as LIDAR and IMU heading to generate a field position</p>
+        <i>(Image is of simulated results of the DNN. Yellow Post shows prediction)</i>    
+        <br/>
+        <br/>
+        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+    </div>
+    <div class="container-fluid">
+        <h5 class="text-light">Using a Deep Neural Net for the purposes of localization, using raw input from a LIDAR sensor and heading information from an IMU. This is with the goal of having a DNN process this complex and often noisy data and generating a X,Y coordinate for the field, all while being stateless which means this can be ran from anywhere on the field at any point in time with out any previous information about starting position.</h5>
+        <br/>
+        <div class="row">
+            <div class="card text-white bg-dark col-4" >
+                <div class="card-header">The Results</div>
+                <div class="card-body">
+                    <h5 class="card-title">Results</h5>
+                    <p class="card-text">As see in the GIF the NN is currently successfully localizing based on LIDAR data, running on the Nvidia Jetson TX2 over UDP and ethernet. Currently the TX2 runs the model at 4ms per inference, so I have been running my tests at 100hz.
+
+This net seems to handle noise and bad LIDAR data extremly well, however IRL testing is required, which I plan to perform extensivly once our club aquires a LIDAR unit, or partner with a team with a Jetson and LIDAR.
+
+For future plans I am still actively developing this model and improving it, while also abusing it. There are plans to attempt to add additional sensor inputs such as vision and ultrasonics. Overall this project has been and continue to wil be an active project, and hopefully will prove to be an extremely powerful tool for FRC, with the goal of integrating this with additional NN's to bring AI into FRC.
+</p>
+                </div>
+            </div>
+            
+             <div class="card text-white bg-dark col-4" >
+                <div class="card-header">The Simulation</div>
+                <div class="card-body">
+                    <h5 class="card-title">Unity Based Simulation</h5>
+                    <p class="card-text">Currently we are using a Unity-based simulator to both acquire this training data and run these tests. Although many may believe this wont translate to IRL performance (which may be the case), its been a constant job for me to emulate noise and real life performance. Currently the LIDAR simulates noise for each point, errors in measurements, delays, and different positions.
+
+Along with this, the concern of the walls being transparent was raised, so for these tests I have mounted the simulated LIDAR on the top of the bot, so it gets a view of the Scale/DS. However, other positions and environments are easy to train and test. This simulator, model, and testing ca, all be easily trained on new environments by just loading in new meshes, which has proven to work.
+
+As see in the GIF above. The bot sends this simulated data to the Jetson over UDP and will get a prediction in return, this is shown as the yellow post.</p>
+                    <h5 class="card-title">Data Gathering</h5>
+                    <p>
+                    The training data is gathered from a version of this simulation that includes 4-6 bots that go to random points on the field. Their X/Y, LIDAR data, and heading are recorded periodically and saved to a file. This is ran usually 50x time scale.
+
+                    </p>
+                </div>
+            </div>
+            
+             <div class="card text-white bg-dark col-4" >
+                <div class="card-header">The Model</div>
+                <div class="card-body">
+                    <h5 class="card-title">Dark card title</h5>
+                    <p class="card-text">Currently the model consists of a 1D Conv net, connected then into a Fully Connected Net which is also where IMU data is inputed. Error is calculated as MSE. This was all writen in Keras built on Tensorflow.
+
+I am still realivly new to ML and creating custom DNN's so my explanation may be lacking
+
+ </p>
+                    
+                    <h5 class="card-title">Data Structure</h5>
+                    <p>LIDAR is scaled 0-1 based on Max Range (20-40m in my testing)
+Field Coors are -1 to 1 based on max field width and length
+Heading is 0/1 based on 0/360
+
+For LIDAR we have ran anywhere from 64-196 Data points with no issue besides training time increases, this is however one field of researching were still doing.
+
+Usually for our training, we train on 3-5m entries, and test on 1-2m.</p>
+                    <h5 class="card-title">Training</h5>
+                    <p>
+                        I train this model on a Nvidia 1080 GPU, currently running 75 Epochs, with each Epoch taking 10+ mins, however this has been changing constantly with new hyper parameters and varying datasets. We have been averaging around 0.002 - 0.003 Losses with noise.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+      
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>
