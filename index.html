@@ -46,7 +46,7 @@
                     <div class="card text-center">
                         <div class="card-body">
                             <h3 class="card-title">Why?</h3>
-                            <p>Deep learning as already fully revolutionized many aspects of our lives, from smart homes, virtual assitants, our phones and social media.</p>
+                            <p>Deep learning as already fully revolutionized many aspects of our lives, from smart homes, virtual assitants, our phones and social media. Future field such as self-driving cars have also been powered by deep learning agents. These factors has led us to look at the feasiblity in using this growing technology inside FRC, in all aspects.</p>
                         </div>
                     </div>
                 </div>
@@ -54,6 +54,7 @@
                     <div class="card text-center">
                         <div class="card-body">
                             <h3 class="card-title">How?</h3>
+                            <p>Using previously owned hardware such as a desktop machines with powerful GPU's, donated embedded systems and sensor packages, and the mentorship and support of our sponors, we as a small club are able to research and advance in this new and fast-growing field, bringing to FRC</p>
                         </div>
                     </div>
                 </div>
@@ -61,6 +62,7 @@
                     <div class="card text-center">
                         <div class="card-body">
                             <h3 class="card-title">Where?</h3>
+                            <p>We're currently applying machine learning to the task of fully controlling our FRC bots, with the end goal of making a fully autonomous FRC bot powered by deep nurel nets. This includes controlling the drive train, subsystem, localization, and navigation</p>
                         </div>
                     </div>
                 </div>
@@ -68,6 +70,7 @@
                     <div class="card text-center">
                         <div class="card-body">
                             <h3 class="card-title">What?</h3>
+                            <p>Our current projet is VictoryNet, a set of ML agents that work together to complete all tasks nessary in a FRC competetion. This once working,  would able to replace human drivers</p>
                         </div>
                     </div>
                 </div>
@@ -100,7 +103,7 @@
                                 <div class="col-8">
                                     <div class="tab-content" id="nav-tabContent">
                                         <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-                                            <p>LocalNet has the goal to process raw sensor data in order to generate </p>
+                                            <p>LocalNet has processes raw IMU and LiDAR data in order to localize a bot on a field, all while being stateless. This advancement allows all all other nets to know the locaiton of the bot at any time, ignoring previous state, and act upon such information. </p>
                                             <img class="img-fluid" src="https://i.imgur.com/G2q9ikB.gif"/>
                                             <hr/>
                                             <a class="btn btn-primary" href="/localnet.html" role="button">View Full Project Page</a>
@@ -108,9 +111,15 @@
                                             <a class="btn btn-primary" href="#" role="button">View Chief Delphi Thread</a>
                                             
                                         </div>
-                                        <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">...</div>
-                                        <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>
-                                        <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>
+                                        <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+                                            <p>NavNet uses the data from  LocalNet plus LiDAR data to detect objects, to allow a bot to successfully navigate an enviorment given a goal coordinate and its location.</p>
+                                        </div>
+                                        <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+                                            <p>ScoreNet is a set of agents trained to complete specific tasks depending on the years FRC's game. These are trained through reinforcement learning, and consist of location choosing, and controlling subsystems.</p>
+                                        </div>
+                                        <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
+                                            <p>MetaNet is our master agent, that invokes all the child nets previously metioned. It acts as the high level brain to the bot, sending high level commands such as "Collect Cube", "Score Cube in Scale", "Move to -0.5,0.8"</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
